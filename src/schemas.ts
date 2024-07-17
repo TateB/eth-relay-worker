@@ -13,11 +13,13 @@ const stringToBigIntTransform = v.pipe(
 	v.string(),
 	v.transform((value) => BigInt(value))
 );
-export const SendTransactionSchema = v.object({
-	to: v.pipe(v.string(), v.check<Address>(isAddress)),
-	data: v.pipe(v.string(), v.check<Hex>(isHex)),
-	value: stringToBigIntTransform,
-	gas: stringToBigIntTransform,
-	maxPriorityFeePerGas: stringToBigIntTransform,
-	maxFeePerGas: stringToBigIntTransform,
-});
+export const SendTransactionSchema = v.array(
+	v.object({
+		to: v.pipe(v.string(), v.check<Address>(isAddress)),
+		data: v.pipe(v.string(), v.check<Hex>(isHex)),
+		value: stringToBigIntTransform,
+		gas: stringToBigIntTransform,
+		maxPriorityFeePerGas: stringToBigIntTransform,
+		maxFeePerGas: stringToBigIntTransform,
+	})
+);
